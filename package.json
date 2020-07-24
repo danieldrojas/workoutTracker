@@ -1,0 +1,26 @@
+{
+  "name": "workoutTracker",
+  "version": "1.0.0",
+  "description": "This app will allow you to create, view, and track daily workouts",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danieldrojas/workoutTracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danieldrojas/workoutTracker/issues"
+  },
+  "homepage": "https://github.com/danieldrojas/workoutTracker#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.9.25",
+    "morgan": "^1.10.0"
+  }
+}
