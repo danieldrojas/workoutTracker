@@ -2,6 +2,7 @@ const express = require("express");
 const logger = require("morgan");
 const mongoose = require("mongoose");
 const path = require("path");
+const db = require("./models")
 
 const PORT = process.env.PORT || 3000;
 
@@ -36,11 +37,8 @@ app.get("api/workouts", (req, res) => {
         res.json(dbWorkouts);
     });
 });
-app.get("/api/images", function (req, res) {
-    db.Image.find({}).then(function (dbImages) {
-        res.json(dbImages);
-    });
-});
+
+
 
 
 
