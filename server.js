@@ -32,6 +32,13 @@ app.get("/exercise", (req, res) => {
 });
 
 // api routes
+app.get("/api/workouts", (_, res) => {
+    db.Workout.find({}).then(function (dbWorkout) {
+        res.json(dbWorkout);
+    }).catch(function (error) {
+        res.json(error)
+    });
+});
 app.post("/api/workouts", ({ body }, res) => {
     console.log("this is new workout:", body)
     db.Workout.create(body).then(function (dbWorkout) {
@@ -43,20 +50,23 @@ app.post("/api/workouts", ({ body }, res) => {
 
 app.put("/api/workouts/:id", (req, res) => {
     console.log("this is the id: ", req.params.id)
-    db.Workout.update(
+    db.Workout.findByIdAndUpdate(
         {
             _id: req.params.id
         },
         {
             $push: {
-                exercise: req.body
-            }
-        }).then(function (dbUpdated) {
-            res.json(dbUpdated)
+                exercises: req.body
+            },
+            $inc: { totalDuration: req.body.duration },
+        },
+        { new: true }
+    ).then(function (dbUpdated) {
+        res.json(dbUpdated)
 
-        }).catch(function (err) {
-            res.json(err)
-        });
+    }).catch(function (err) {
+        res.json(err)
+    });
 });
 
 //retrieve data for stats 
@@ -68,13 +78,6 @@ app.get("/api/workouts/range", (req, res) => {
     });
 });
 
-app.post("/api/workouts/", ({body}, res) => {
-    db.Workout.create(body).then(function (dbWorkout) {
-        res.json(dbWorkout);
-    }).catch(function (error) {
-        res.json(error)
-    });
-});
 
 
 
