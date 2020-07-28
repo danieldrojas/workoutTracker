@@ -31,12 +31,30 @@ app.get("/exercise", (req, res) => {
     res.sendFile(path.join(__dirname + "/public/exercise.html"));
 });
 
-//api routes
-app.get("api/workouts", (req, res) => {
-    db.Workout.find({}).then(function (dbWorkouts) {
-        res.json(dbWorkouts);
-    });
+
+
+app.put("/api/workouts/:id", (req, res) => {
+    console.log(req)
+    db.Workout.update(
+        {
+            _id: req.params.id
+        },
+        {
+            $push: {
+                exercise: req.body
+            }
+        }).then(function (dbUpdated) {
+            res.json(dbUpdated)
+                
+        }).catch(function (err) {
+            res.json(err)
+        });
+        
+    
 });
+
+
+
 
 
 
