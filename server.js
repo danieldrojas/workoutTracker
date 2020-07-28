@@ -24,6 +24,7 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname + "/public/index.html"));
 });
 
+
 app.get("/stats", (req, res) => {
     res.sendFile(path.join(__dirname + "/public/stats.html"));
 });
@@ -31,10 +32,21 @@ app.get("/exercise", (req, res) => {
     res.sendFile(path.join(__dirname + "/public/exercise.html"));
 });
 
+// api routes
+
+app.post("/api/workouts", ({ body }, res) => {
+    db.Workout.create(body).then(function (dbWorkout) {
+        res.json(dbWorkout);
+    }).catch(function (error) {
+        res.json(error)
+    });
+});
+
+
 
 
 app.put("/api/workouts/:id", (req, res) => {
-    console.log(req)
+    console.log(req.params.id)
     db.Workout.update(
         {
             _id: req.params.id
@@ -45,13 +57,19 @@ app.put("/api/workouts/:id", (req, res) => {
             }
         }).then(function (dbUpdated) {
             res.json(dbUpdated)
-                
+
         }).catch(function (err) {
             res.json(err)
         });
-        
-    
 });
+
+
+
+
+
+
+
+
 
 
 
